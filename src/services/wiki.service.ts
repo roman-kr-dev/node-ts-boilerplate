@@ -12,8 +12,7 @@ const service = async (req: Request, res: Response, next: NextFunction) => {
       scrapeDate: new Date().toISOString(),
       articleName,
       introduction
-    }
-;
+    };
   } catch (e) {
     res.locals.serviceReponse = { error: `Summery not found for this term: ${articleName}` };
   }
