@@ -1,7 +1,9 @@
 import logger from './logger';
 import app from './app';
 import config from './config';
+import MoneyService from './services/moneyWorker';
 
+let moneyService = MoneyService();
 let server = app.listen(config.port, () => {
   logger.info(`Listening to port ${config.port}`);
 });
