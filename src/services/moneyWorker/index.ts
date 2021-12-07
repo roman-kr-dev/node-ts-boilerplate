@@ -15,11 +15,11 @@ const ALLOWED_CURRENCIES = ['USD', 'EUR', 'GBP'];
 
 let eligableTransactions = 0;
 
-const notifyTransactions = () => {
+export const notifyTransactions = () => {
   console.log('under 50!');
 }
 
-export const onMoneyTransfer = (notifyTransactions: Function) => (packet: Packet, error: Error | undefined) => {
+export const onMoneyTransfer = (packet: Packet, error: Error | undefined) => {
   if (error) {
     throw error;
   }
@@ -36,15 +36,15 @@ export const onMoneyTransfer = (notifyTransactions: Function) => (packet: Packet
   }
 }
 
-export const MoneyWorker = (provider: any, notify: Function) => {
+export const MoneyWorker = (provider: any) => {
   try {
-    provider(onMoneyTransfer(notify));
+    provider(onMoneyTransfer);
   } catch (e) {
   }
 }
 
 export const service = () => {
-  MoneyWorker(subscribeToMoneyTransfer, notifyTransactions);
+  MoneyWorker(subscribeToMoneyTransfer);
 }
 
 export default service;
