@@ -7,6 +7,9 @@ const params = baseRequesteSchema.append({
 
 const response = baseResponseSchema
   .append({
+    scrapeDate: Joi.date().required(),
+    articleName: Joi.string().required(),
+    introduction: Joi.string().required(),
   })
   .unknown();
 

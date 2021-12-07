@@ -2,15 +2,20 @@ import wiki from 'wikijs';
 import { Request, Response, NextFunction } from 'express';
 
 const service = async (req: Request, res: Response, next: NextFunction) => {
-  const article = req.params.article;
+  const articleName = req.params.article;
 
   try { 
-    const page = await wiki().page(article);
-    const summery = await page.summary();
+    const page = await wiki().page(articleName);
+    const introduction = await page.summary();
 
-    res.locals.serviceReponse = { summery };
+    res.locals.serviceReponse = {
+      scrapeDate: new Date().toISOString(),
+      articleName,
+      introduction
+    }
+;
   } catch (e) {
-    res.locals.serviceReponse = { error: `Summery not found for this term: ${article}` };
+    res.locals.serviceReponse = { error: `Summery not found for this term: ${articleName}` };
   }
 
   return next();
