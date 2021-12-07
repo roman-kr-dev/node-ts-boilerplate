@@ -3,15 +3,21 @@ import { MoneyWorker } from './';
 jest.setTimeout(1000 * 100);
 
 const mockProvider = (callback: any) => {
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 200; i++) {
     callback({ from: 'a', to: 'b', currency: 'EUR', amount: 40 });
   }
 }
 
-test('MoneyWorker - test get 50 times under 50 within 5 seconds', done => {
+test('MoneyWorker - get notified on 50 calls of under 50 EURO * 3 times within 5 seconds', done => {
+  let calls = 0;
+
   function callback() {
-    clearTimeout(timeout);
-    done();
+    calls ++;
+
+    if (calls === 3) {
+      clearTimeout(timeout);
+      done();
+    }
   }
 
   let timeout = setTimeout(() => {
